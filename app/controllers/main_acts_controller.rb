@@ -1,0 +1,2 @@
+class MainActsController < ApplicationController
+end

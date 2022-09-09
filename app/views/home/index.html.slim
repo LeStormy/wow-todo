@@ -1,0 +1,34 @@
+.is-flex.is-justify-content-space-between.is-align-items-center
+  p.is-size-3
+    = "Meta Objectives: #{@meta_completion} / #{@main_acts.count}"
+  p.is-size-3
+    = "Sub Objectives: #{@completions.count} / #{@sub_acts_count}"
+
+- @main_acts.each do |main_act|
+  .mb-4.is-flex.is-justify-content-space-between.is-align-items-center.is-title
+    p.is-size-3.bordered-title = main_act.name
+    .sub-act-actions
+      .button.is-info.is-inverted.sub-js-trigger data-target="sub-js-#{main_act.id}"
+        = "Hide"
+      - if (main_act.sub_acts.pluck(:id) - @completions.keys).empty?
+        | ✅
+      - else
+        | ❌
+
+  div id="sub-js-#{main_act.id}"
+    - main_act.sub_acts.each do |sub_act|
+      .is-flex.is-align-items-center.is-justify-content-space-between.py-2
+        .sub-act-title
+          .is-flex.is-justify-content-end.is-align-items-center
+            p.is-size-5 = sub_act.name
+            = kind_span_tag(sub_act)
+            = reset_span_tag(sub_act)
+        = hint_tag(sub_act)
+        .sub-act-actions
+          - if @completions.include?(sub_act.id)
+            = button_to "Undo", undo_completion_path(@completions[sub_act.id].id), class: "button"
+            | ✅
+          - else
+            = completion_button(sub_act)
+            | ❌
+          

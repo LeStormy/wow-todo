@@ -1,0 +1,4 @@
+= form_with url: completions_path do |form|
+  = form.hidden_field :sub_act_id, value: sub_act.id
+
+  = form.submit "Done", class: "button"

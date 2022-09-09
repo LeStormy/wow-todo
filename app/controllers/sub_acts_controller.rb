@@ -1,0 +1,2 @@
+class SubActsController < ApplicationController
+end

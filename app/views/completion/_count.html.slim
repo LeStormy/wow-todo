@@ -1,0 +1,29 @@
+#modal-js.modal
+  .modal-background
+  .modal-card
+    .modal-card-head.has-background-info
+      p.modal-card-title.has-text-white
+        | Collection done
+    .modal-card-body
+      = form_with url: create_with_count_completions_path do |form|
+        = form.hidden_field :sub_act_id, value: sub_act.id
+        .field
+          = form.label "Have"
+          = form.number_field :have, value: sub_act.metadata["have"], class: "input"
+
+        .field
+          = form.label "Need"
+          = form.number_field :need, value: sub_act.metadata["need"], class: "input"
+
+        .field
+          = form.label "Get"
+          = form.number_field :get, value: sub_act.metadata["get"], class: "input"
+
+
+        = form.submit "Done", class: "button"
+  button.modal-close.is-large aria-label="close" 
+
+button.js-modal-trigger.button data-target="modal-js" 
+  | Done
+
+

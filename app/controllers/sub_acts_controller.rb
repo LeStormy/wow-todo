@@ -13,4 +13,10 @@ class SubActsController < ApplicationController
 
     redirect_back fallback_location: "#{root_path}#sub-js-#{main_act.id}"
   end
+
+  def destroy
+    SubAct.find(params[:id]).destroy
+  
+    redirect_back fallback_location: root_path
+  end
 end

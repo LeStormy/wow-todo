@@ -1,13 +1,13 @@
 class CompletionsController < ApplicationController
   def undo
-    Completion.find(params[:id]).destroy
+    completion = Completion.find(params[:id]).destroy
 
-    redirect_back fallback_location: root_path
+    redirect_to "#{url_for(root_path)}#main-#{completion.sub_act.main_act.id}"
   end
 
   def create
-    Completion.create!(sub_act_id: params[:sub_act_id])
-    redirect_back fallback_location: root_path
+    completion = Completion.create!(sub_act_id: params[:sub_act_id])
+    redirect_to "#{url_for(root_path)}#main-#{completion.sub_act.main_act.id}"
   end
 
   def create_with_count
@@ -21,6 +21,6 @@ class CompletionsController < ApplicationController
 
     sub_act.update!(metadata: metadata)
 
-    redirect_back fallback_location: root_path
+    redirect_to "#{url_for(root_path)}#main-#{sub_act.main_act.id}"
   end
 end

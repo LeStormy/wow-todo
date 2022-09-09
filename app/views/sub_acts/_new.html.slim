@@ -1,0 +1,48 @@
+#new-sub.modal
+  .modal-background
+  .modal-card
+    .modal-card-head.has-background-info
+      p.modal-card-title.has-text-white
+        | New Sub Act
+    .modal-card-body
+      = form_with url: sub_acts_path do |form|
+        = form.hidden_field :user, value: User.first.id
+        .field
+          = form.label "Name"
+          = form.text_field :name, class: "input"
+
+        .meta-field
+          = form.label "Meta Group"
+          .select
+            = form.select :main_act_id, options_for_select(MainAct.all.order(:name).pluck(:name, :id))
+
+        .meta-field
+          = form.label "Kind"
+          .select
+            = form.select "metadata[kind]", options_for_select([["Collect", "count"], ["Quest Check", "quest_check"], ["Rare Kill", "rare_kill"], ["Action", "action"]])
+
+        .meta-field
+          = form.label "Reset"
+          .select
+            = form.select "metadata[reset]", options_for_select([["Daily", "daily"], ["Weekly", "weekly"], ["Half Week", "half"]])
+
+        .meta-field
+          = form.label "Hint"
+          = form.text_field "metadata[hint]", class: "input half-width"
+
+        .meta-field
+          = form.label "Have"
+          = form.number_field "metadata[have]", class: "input half-width"
+
+        .meta-field
+          = form.label "Need"
+          = form.number_field "metadata[need]", class: "input half-width"
+
+        .meta-field
+          = form.label "Get"
+          = form.number_field "metadata[get]", class: "input half-width"
+
+        = form.submit "Create", class: "button"
+  button.modal-close.is-large aria-label="close" 
+
+

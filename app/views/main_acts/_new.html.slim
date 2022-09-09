@@ -1,0 +1,17 @@
+#new-meta.modal
+  .modal-background
+  .modal-card
+    .modal-card-head.has-background-info
+      p.modal-card-title.has-text-white
+        | New Meta Group
+    .modal-card-body
+      = form_with url: main_acts_path do |form|
+        = form.hidden_field :user_id, value: User.first.id
+        .field
+          = form.label "Name"
+          = form.text_field :name, class: "input"
+
+        = form.submit "Create", class: "button"
+  button.modal-close.is-large aria-label="close" 
+
+

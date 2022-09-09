@@ -20,6 +20,10 @@
   display: none;
 }
 
+.half-width {
+  width: 50%;
+}
+
 .bordered-title {
   border-bottom: 1px solid black;
   width: 20%;
@@ -60,7 +64,10 @@
   margin-top: 3rem
 }
 
-.field {
+.meta-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .rare-kill {

@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2022_09_20_180039) do
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "telegram_username"
     t.integer "telegram_id"

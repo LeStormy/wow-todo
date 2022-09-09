@@ -1,6 +1,14 @@
+= render "main_acts/new"
+= render "sub_acts/new"
+
 .is-flex.is-justify-content-space-between.is-align-items-center
   p.is-size-3
     = "Meta Objectives: #{@meta_completion} / #{@main_acts.count}"
+  .sub-act-actions
+    button.button.js-modal-trigger data-target="new-meta"
+      = "New Meta"
+    button.button.js-modal-trigger data-target="new-sub"
+      = "New Sub"
   p.is-size-3
     = "Sub Objectives: #{@completions.count} / #{@sub_acts_count}"
 
@@ -16,7 +24,7 @@
         | ❌
 
   div id="sub-js-#{main_act.id}"
-    - main_act.sub_acts.each do |sub_act|
+    - main_act.sub_acts.order(:name).each do |sub_act|
       .is-flex.is-align-items-center.is-justify-content-space-between.py-2
         .sub-act-title
           .is-flex.is-justify-content-end.is-align-items-center

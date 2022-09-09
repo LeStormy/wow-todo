@@ -2,13 +2,15 @@ module HomeHelper
   def kind_span_tag(sub_act)
     case sub_act.metadata["kind"]
     when "rare_kill"
-      content_tag(:span, "Rare Kill", class: ["span-tag", "rare-kill"])
+      content_tag(:span, "Rare", class: ["span-tag", "rare-kill"])
     when "count"
       content_tag(:span, "Collect", class: ["span-tag", "collect"])
     when "action"
       content_tag(:span, "Action", class: ["span-tag", "action"])
     when "quest_check"
       content_tag(:span, "Quest", class: ["span-tag", "quest"])
+    when "raid_boss"
+      content_tag(:span, "Raid", class: ["span-tag", "raid-boss"])
     end  
   end
 
@@ -28,6 +30,8 @@ module HomeHelper
     case metadata["kind"]
     when "rare_kill"
       content_tag(:p, metadata["hint"] || "Kill the rare", class: ["describe-action"])
+    when "raid_boss"
+      content_tag(:p, metadata["hint"] || "Kill the raid boss", class: ["describe-action"])
     when "count"
       have = metadata["have"] || 1
       need = metadata["need"] || 1
@@ -55,6 +59,8 @@ module HomeHelper
       render "completion/simple", sub_act: sub_act
     when "quest_check"
       render "completion/simple", sub_act: sub_act
+    when "raid_boss"
+      render "completion/simple", sub_act: sub_act
     end
   end
 
@@ -68,6 +74,8 @@ module HomeHelper
     when "action"
       button_to "Done", do_completions_path, class: "button"
     when "quest_check"
+      button_to "Done", do_completions_path, class: "button"
+    when "raid_boss"
       button_to "Done", do_completions_path, class: "button"
     end
   end

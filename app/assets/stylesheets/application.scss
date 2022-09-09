@@ -14,7 +14,19 @@
  *= require_self
  */
 
+ 
 @import "bulma";
+
+body {
+  background-color: #223;
+  padding: 15px;
+}
+
+.container-main {
+  background-color: #fdfdfd;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+}
 
 .d-none {
   display: none;

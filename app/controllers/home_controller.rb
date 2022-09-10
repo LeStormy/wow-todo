@@ -12,7 +12,7 @@ class HomeController < ApplicationController
         end
       elsif sub_act.metadata["reset"] == "half"
         wed_reset = Time.now.prev_occurring(:wednesday).change({hour: 9, minute: 0})
-        sat_reset = Time.now.prev_occurring(:saturday).change({hour: 9, minute: 0})
+        sat_reset = Time.now.prev_occurring(:saturday).change({hour: 21, minute: 0})
 
         if sat_reset < wed_reset
           completion = Completion.where(sub_act: sub_act).where("created_at > ?", wed_reset).first

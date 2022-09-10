@@ -11,19 +11,14 @@ class HomeController < ApplicationController
           @completions[sub_act.id] = completion
         end
       elsif sub_act.metadata["reset"] == "half"
-        wed_reset = Time.now.prev_occurring(:wednesday).change({hour: 9, minute: 0})
-        sat_reset = Time.now.prev_occurring(:saturday).change({hour: 21, minute: 0})
+        wed_reset = DateTime.now.beginning_of_week(:wednesday).change({hour: 9, minute: 0})
+        sat_reset = DateTime.now.beginning_of_week(:saturday).change({hour: 21, minute: 0})
 
-        if sat_reset < wed_reset
-          completion = Completion.where(sub_act: sub_act).where("created_at > ?", wed_reset).first
-          if completion.present? 
-            @completions[sub_act.id] = completion
-          end
-        else
-          completion = Completion.where(sub_act: sub_act).where("created_at > ?", sat_reset).first
-          if completion.present? 
-            @completions[sub_act.id] = completion
-          end
+        relevant_date = sat_reset < wed_reset ? wed_reset : sat_reset
+
+        completion = Completion.where(sub_act: sub_act).where("created_at > ?", relevant_date).first
+        if completion.present? 
+          @completions[sub_act.id] = completion
         end
       elsif sub_act.metadata["reset"] == "daily"
         completion = Completion.where(sub_act: sub_act).where("created_at > ?", Date.yesterday.change({hour: 9, minute: 0})).first

@@ -11,7 +11,7 @@ class SubActsController < ApplicationController
 
     sub_act.save!
 
-    redirect_back fallback_location: "#{root_path}#sub-js-#{main_act.id}"
+    redirect_back fallback_location: root_path
   end
 
   def destroy

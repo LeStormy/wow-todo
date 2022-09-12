@@ -26,7 +26,7 @@ class HomeController < ApplicationController
           @completions[sub_act.id] = completion
         end
         completion = Completion.where(sub_act: sub_act).where("created_at > ?", Time.now.change({hour: 7, minute: 0})).first
-        if Time.now.hour > 7 && completion.present?
+        if Time.now.hour >= 7 && completion.present?
           @completions[sub_act.id] = completion
         end
       end

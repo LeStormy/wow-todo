@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 
     @main_acts.map(&:sub_acts).flatten.each do |sub_act|
       if sub_act.metadata["reset"] == "weekly"
-        completion = Completion.where(sub_act: sub_act).where("created_at > ?", Time.now.prev_occurring(:wednesday).change({hour: 7, minute: 0})).first
+        completion = Completion.where(sub_act: sub_act).where("created_at > ?", DateTime.now.beginning_of_week(:wednesday).change({hour: 7, minute: 0})).first
         if completion.present?
           @completions[sub_act.id] = completion
         end
